@@ -1,12 +1,10 @@
+import io.restassured.response.Response;
 import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
-import static io.restassured.RestAssured.*;
-import io.restassured.response.Response;
-import static io.restassured.matcher.RestAssuredMatchers.*;
-import static org.hamcrest.Matchers.*;
-import static io.restassured.module.jsv.JsonSchemaValidator.*;
+import static io.restassured.RestAssured.baseURI;
+import static io.restassured.RestAssured.given;
 
 public class AppTest {
   @Before
@@ -21,8 +19,7 @@ public class AppTest {
 
   @Test
   public void getUserById() {
-    given().log().all().
-            when().get("/users/1").then().statusCode(200);
+    given().log().all().when().get("/users/1").then().statusCode(200);
   }
 
   @Test
@@ -30,8 +27,7 @@ public class AppTest {
     Response response = given().when().get("/users").then().statusCode(200).extract().response();
     Integer user_id = response.path("[0].id");
 
-    given().
-            when().get("/users/{id}", user_id).then().statusCode(200);
+    given().when().get("/users/{id}", user_id).then().statusCode(200);
   }
 
   @Test
@@ -58,12 +54,12 @@ public class AppTest {
 
     System.out.println(requestParams.toString());
 
-    given().
-            body(requestParams.toString()).
-    when().
-          post("/users").
-    then().
-       assertThat().
-       statusCode(201);
+    given()
+        .body(requestParams.toString())
+        .when()
+        .post("/users")
+        .then()
+        .assertThat()
+        .statusCode(201);
   }
 }

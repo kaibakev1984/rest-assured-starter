@@ -2,14 +2,10 @@ import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
-import static io.restassured.RestAssured.*;
-import io.restassured.response.Response;
-
 import java.util.Date;
 
-import static io.restassured.matcher.RestAssuredMatchers.*;
-import static org.hamcrest.Matchers.*;
-import static io.restassured.module.jsv.JsonSchemaValidator.*;
+import static io.restassured.RestAssured.baseURI;
+import static io.restassured.RestAssured.given;
 
 public class StorePetSwaggerTest {
   @Before
@@ -34,14 +30,15 @@ public class StorePetSwaggerTest {
     requestParams.put("status", "placed");
     requestParams.put("complete", false);
 
-    given().log().all().
-            contentType("application/json\r\n").
-            body(requestParams.toString()).
-            when().
-              post("/store/order").
-            then().
-              assertThat().
-              statusCode(200);
+    given()
+        .log()
+        .all()
+        .contentType("application/json\r\n")
+        .body(requestParams.toString())
+        .when()
+        .post("/store/order")
+        .then()
+        .assertThat()
+        .statusCode(200);
   }
-
 }

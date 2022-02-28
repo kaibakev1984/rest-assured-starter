@@ -2,15 +2,11 @@ import org.json.JSONObject;
 import org.junit.Before;
 import org.junit.Test;
 
-import static io.restassured.RestAssured.*;
-import io.restassured.response.Response;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import static io.restassured.matcher.RestAssuredMatchers.*;
-import static org.hamcrest.Matchers.*;
-import static io.restassured.module.jsv.JsonSchemaValidator.*;
+import static io.restassured.RestAssured.baseURI;
+import static io.restassured.RestAssured.given;
 
 public class PetSwaggerTest {
   @Before
